@@ -1,0 +1,47 @@
+<?
+    package require rl_json
+    package require tdbc::postgres
+
+    ::rivet::load_response response
+
+    if {[info exists response(sqlstring)]==1} {
+        set sqlstring $response(sqlstring)
+    }
+
+    if {[info exists response(sqlstring)]==0 || [info exists sqlstring]==0} {
+        ::rivet::headers  numeric 400
+    } else {
+        ::rivet::headers numeric 200
+        ::rivet::headers type application/json
+
+        tdbc::postgres::connection create db -user danilo -password danilo -port 5432 -database danilo
+
+        set stmt [db prepare $sqlstring]
+        set resultset [$stmt execute]
+
+        set cols [$resultset columns]
+        set param_colitem [list]
+        foreach col $cols {
+            lappend param_colitem "string \"$col\""
+        }
+        rl_json::json set data "column" [rl_json::json new "array" {*}$param_colitem]
+
+        set param_rowitems [list]
+        $resultset foreach -as lists result {
+            set param_rowitem [list]
+            lappend param_rowitem "array"
+            foreach row $result {
+                lappend param_rowitem "string \"[::rivet::escape_sgml_chars $row]\""
+            }
+
+            lappend param_rowitems $param_rowitem
+        }
+
+        $resultset close
+        $stmt close
+        db close
+
+        set data [rl_json::json set data "row" [rl_json::json new "array" {*}$param_rowitems]]
+        puts $data
+    }
+?>
