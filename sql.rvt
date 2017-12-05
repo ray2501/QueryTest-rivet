@@ -31,7 +31,7 @@
             set param_rowitem [list]
             lappend param_rowitem "array"
             foreach row $result {
-                lappend param_rowitem "string \"[::rivet::escape_sgml_chars $row]\""
+                lappend param_rowitem "string \"$row\""
             }
 
             lappend param_rowitems $param_rowitem
