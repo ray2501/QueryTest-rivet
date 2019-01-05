@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {
@@ -40,15 +40,15 @@
     "ts-loader": "^3.2.0",
     "typescript": "^2.6.2",
     "uglifyjs-webpack-plugin": "^1.1.1",
-    "url-loader": "^0.5.8",
+    "url-loader": "^1.1.2",
     "vue-class-component": "^6.1.1",
     "vue-loader": "^13.3.0",
     "vue-property-decorator": "^6.0.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.6.0",
+    "webpack": "^3.11.1",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1",
+    "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
