@@ -1,17 +1,16 @@
 <template>
-  <div id="app">
     <SqlQuery/>
-  </div>
 </template>
 
 <script lang="ts">
-import SqlQuery from './components/SqlQuery'
+import { defineComponent } from 'vue';
+import SqlQuery from './components/SqlQuery.vue';
 
-export default {
-  name: 'app',
+export default defineComponent({
+  name: 'App',
   components: {
     SqlQuery
   }
-}
+});
 </script>
 

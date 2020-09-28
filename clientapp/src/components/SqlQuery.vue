@@ -6,7 +6,7 @@
     <fieldset>
     <label for="text">Query String</label>
     <input type="text" class="pure-input-1-2" v-model="sqlstring" placeholder="">
-    <button type="submit" class="pure-button pure-button-primary" v-on:click.prevent="posttoserver">Submit</button>
+    <button type="submit" class="pure-button pure-button-primary" @click.prevent="posttoserver">Submit</button>
     </fieldset>
 </form>
 </div>
@@ -26,28 +26,28 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue';
+import axios from 'axios';
 
-var data = {
-    sqlstring: '',
-    column: '',
-    row: ''
-}
-
-export default Vue.extend({
+export default defineComponent({
   name: 'SqlQuery',
   data () {
-    return data
+    return {
+         sqlstring: '',
+         column: '',
+         row: ''
+      }
   },
   methods: {
-      posttoserver: function () {
+      posttoserver(event: string) {
          let formdata = new FormData();
-         formdata.append('sqlstring', data.sqlstring);
-         this.$http.post('sql.rvt', formdata,
+         formdata.append('sqlstring', this.sqlstring);
+
+         axios.post('sql.rvt', formdata,
          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
          .then((response) => {
-           data.column = response.data["column"];
-           data.row = response.data["row"];
+           this.column = response.data["column"];
+           this.row = response.data["row"];
          })
          .catch((error) => {
            alert(error);
