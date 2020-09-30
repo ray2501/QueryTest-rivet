@@ -13,12 +13,12 @@
 <table class="pure-table" width="100%">
 <thead>
     <tr>
-    <td v-for="col in column">{{ col }} </td>
+    <td v-for="col in column" v-bind:key="col">{{ col }} </td>
     </tr>
 </thead>
 <tbody>
-    <tr v-for="rowitem in row">
-    <td v-for="item in rowitem">{{ item }} </td>
+    <tr v-for="rowitem in row" v-bind:key="rowitem">
+    <td v-for="item in rowitem" v-bind:key="item">{{ item }} </td>
     </tr>
 </tbody>
 </table>
